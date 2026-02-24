@@ -5,18 +5,27 @@ import api from '../api/axios'
 
 const router = useRouter()
 
-const email = ref('')
-const password = ref('')
+const form = ref({
+  email: '',
+  password: ''
+})
 
 const login = async () => {
-  const res = await api.post('/auth/login', {
-    email: email.value,
-    password: password.value,
-  })
+  try {
 
-  localStorage.setItem('token', res.data.access_token)
-  localStorage.setItem('user', JSON.stringify(res.data.user))
-  router.push('/')
+    console.log('FORM:', form.value)
+
+    const res = await api.post('/auth/login', form.value)
+
+    localStorage.setItem('token', res.data.access_token)
+    localStorage.setItem('user', JSON.stringify(res.data.user))
+
+    router.push('/')
+
+  } catch (err) {
+    console.error(err)
+    alert('Credenciales incorrectas')
+  }
 }
 </script>
 
@@ -24,9 +33,18 @@ const login = async () => {
   <div class="container">
     <div class="card">
       <h2>Login</h2>
-
-      <input v-model="email" placeholder="Email" />
-      <input v-model="password" type="password" placeholder="Password" />
+    <label for="email">Email</label>
+      <input
+      v-model="form.email"
+      type="email"
+      placeholder="Email"
+    />
+    <label for="password">Contraseña</label>
+    <input
+      v-model="form.password"
+      type="password"
+      placeholder="Password"
+    />
 
       <button @click="login">
         Iniciar sesión

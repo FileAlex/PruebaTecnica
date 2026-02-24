@@ -63,16 +63,19 @@ const register = async () => {
     <form class="card" @submit.prevent="register">
 
       <h2>Registro</h2>
-
+      <label for="name">Nombre</label>
       <input v-model="form.nombre" placeholder="Nombre" />
       <small v-if="errors.nombre" class="error">{{ errors.nombre }}</small>
 
+      <label for="email">Email</label>
       <input v-model="form.email" placeholder="Email" />
       <small v-if="errors.email" class="error">{{ errors.email }}</small>
 
+      <label for="password">>Elige tu contraseña</label>
       <input v-model="form.password" type="password" placeholder="Contraseña" />
       <small v-if="errors.password" class="error">{{ errors.password }}</small>
 
+      <label for="confirmPassword">Confirma tu contraseña</label>
       <input v-model="form.confirmPassword" type="password" placeholder="Confirmar contraseña" />
       <small v-if="errors.confirmPassword" class="error">{{ errors.confirmPassword }}</small>
 
